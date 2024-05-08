@@ -1,0 +1,9 @@
+
+
+ services:
+   websegmentacion:
+     build: ./webrecursoshumanos
+     ports:
+       - 80:8080
+     volumes:
+       - ./websegmentacion:/webrecursoshumanos
