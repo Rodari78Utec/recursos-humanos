@@ -62,7 +62,7 @@ def predict():
     else:
         resultpre ='No Contratado'
 
-    return render_template('index.html', result="El cluster al que pertenece es {} ".format(resultpre))
+    return render_template('index.html', result="El postulante debe ser  {} ".format(resultpre))
 
 
 # Python main
