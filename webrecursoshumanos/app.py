@@ -1,5 +1,6 @@
 from flask import Flask, request, render_template
 import numpy as np
+import pandas as pd
 import pickle
 
 # Importar los modelos
@@ -7,10 +8,9 @@ random_forest = pickle.load(open('model.pkl', 'rb'))
 ms = pickle.load(open('minmaxscaler.pkl', 'rb'))
 
 
-def prediction(sl_no, gender, ssc_p, hsc_p, degree_p, workex, etest_p, specialisation, mba_p):
+def prediction( gender, ssc_p, hsc_p, degree_p, workex, etest_p, specialisation, mba_p):
     # Crear un DataFrame con los datos de entrada
     input_data = pd.DataFrame({
-        'sl_no': [sl_no],
         'gender': [gender],
         'ssc_p': [ssc_p],
         'hsc_p': [hsc_p],
@@ -45,7 +45,7 @@ def index():
 @app.route("/predict", methods=['POST'])
 def predict():
 
-    sl_no = request.form['sl_no']
+  
     gender = request.form['gender']
     ssc_p = request.form['ssc_p']
     hsc_p = request.form['hsc_p']
@@ -55,13 +55,8 @@ def predict():
     specialisation = request.form['specialisation']
     mba_p = request.form['mba_p']
 
-    genero = request.form['Genero']
-    edad = request.form['Edad']
-    ingresos_anuales = request.form['Ingresos_Anuales']
-    score = request.form['Score']
-
     # Predecir el cluster
-    resultpre = prediction(sl_no, gender, ssc_p, hsc_p, degree_p, workex, etest_p, specialisation, mba_p)
+    resultpre = prediction( gender, ssc_p, hsc_p, degree_p, workex, etest_p, specialisation, mba_p)
     if resultpre == 1:
         resultpre = 'contratado'
     else:
